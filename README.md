@@ -1,1 +1,1 @@
-RNDT-BUILD-KASHI.github/workflows/build.yml
+RNDT-BUILD-KASHI
