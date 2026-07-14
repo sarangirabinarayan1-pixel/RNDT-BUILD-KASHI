@@ -1,1 +1,22 @@
-.github/workflows/build.yml
+.github/workflows/name: Build AAB/APK
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npx expo prebuild --clean
+      - run: cd android && ./gradlew bundleRelease
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-release.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
